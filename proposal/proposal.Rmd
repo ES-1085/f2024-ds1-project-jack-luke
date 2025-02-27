@@ -18,7 +18,6 @@ Text goes here. Refer to the Markdown Quick Reference: Help -> Markdown Quick Re
 Text goes here.
 
 ```{r}
-# Code goes here
 ```
 
 ## 3. Data analysis plan
