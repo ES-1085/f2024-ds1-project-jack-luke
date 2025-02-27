@@ -1,6 +1,6 @@
 ---
 title: "Project proposal"
-author: "Team name"
+author: "Jack, Luke, Dexter"
 output: html_document
 ---
 
@@ -11,14 +11,17 @@ library(broom)
 
 ## 1. Introduction
 
-Text goes here. Refer to the Markdown Quick Reference: Help -> Markdown Quick Reference. 
+The data has been collected from Major League Baseball's Statcast program. It contains pitcher data from 2021 to 2024, detailing the outcome of each pitch thrown. Each observation is the summary statistic of each pitcher in a specific year, where it demonstrates the outcomes of all pitches thrown. Each variable represents the outcome of a pitch, or event such as a pickoff attempt. Our research question is: "Is there a correlation between pitcher actions and pitcher success measured in wins and losses."
 
 ## 2. Data
 
 Text goes here.
 
 ```{r}
-# Code goes here
+getwd()
+baseball <- read_csv("../data/pitching_data_2021-2024.csv")
+
+glimpse(baseball)
 ```
 
 ## 3. Data analysis plan
