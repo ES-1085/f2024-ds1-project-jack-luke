@@ -15,7 +15,7 @@ The data has been collected from Major League Baseball's Statcast program. It co
 
 ## 2. Data
 
-```{r}
+```{r data review}
 
 getwd()
 baseball <- read_csv("../data/pitching_data_2021-2024.csv")
@@ -25,7 +25,22 @@ glimpse(baseball)
 
 ## 3. Data analysis plan
 
-Our plan is to understand what pitch combinations make a pitcher better or worse. This can be done by looking at pitch combinations and batter success against a pitcher. Visualizing this will present an image of success. We will also look at time trends to see how pitchers change their pitch combinations as they age in order to stay successful.
+Our plan is to understand what pitch combinations make a pitcher better or worse. This can be done by looking at pitch combinations and batter success against a pitcher. Visualizing this will present an image of success. We will also look at time trends to see how pitchers change their pitch combinations as they age in order to stay successful. The visualizations below demonstrate that there is differentation among the data in terms of strikeouts and that there is a probable correlation between innings pitched and ERA, where as more innings are pitched, ERA decreases.
+
+```{r preliminary visualizations}
+library(ggplot2)
+#Summary Statistics
+summary(baseball)
+#Histogram of strikeouts
+ggplot(baseball, aes(x = strikeout)) +
+  geom_histogram(binwidth = 10, fill = "blue", color = "black") +
+  labs(title = "Distribution of Strikeouts", x = "Strikeouts", y = "Frequency") 
+
+#ERA vs Innings pitched
+ggplot(baseball, aes(x = p_formatted_ip, y = p_era)) +
+  geom_point(color = "red", alpha = 0.6) +
+  labs(title = "Innings Pitched vs ERA", x = "Innings Pitched", y = "ERA")
+```
 
 
 
