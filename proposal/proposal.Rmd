@@ -15,8 +15,6 @@ The data has been collected from Major League Baseball's Statcast program. It co
 
 ## 2. Data
 
-Text goes here.
-
 ```{r}
 
 getwd()
@@ -27,12 +25,8 @@ glimpse(baseball)
 
 ## 3. Data analysis plan
 
-Text goes here.
+Our plan is to understand what pitch combinations make a pitcher better or worse. This can be done by looking at pitch combinations and batter success against a pitcher. Visualizing this will present an image of success. We will also look at time trends to see how pitchers change their pitch combinations as they age in order to stay successful.
 
-
-```{r}
-# Code goes here
-```
 
 
 ## 4. Data Ethics Review
