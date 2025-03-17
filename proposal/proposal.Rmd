@@ -11,7 +11,7 @@ library(broom)
 
 ## 1. Introduction
 
-The data has been collected from Major League Baseball's Statcast program. It contains pitcher data from 2021 to 2024, detailing the outcome of each pitch thrown. Each observation is the summary statistic of each pitcher in a specific year, where it demonstrates the outcomes of all pitches thrown. Each variable represents the outcome of a pitch, or event such as a pickoff attempt. Our research question is: "Is there a correlation between pitcher actions and pitcher success measured in wins and losses."
+The data has been collected from Major League Baseball's Statcast program. It contains pitcher data from 2021 to 2024, detailing the outcome of each pitch thrown. Each observation is the summary statistic of each pitcher in a specific year, where it demonstrates the outcomes of all pitches thrown. Each variable represents the outcome of a pitch, or event such as a pickoff attempt. Our research question is: "Is there a correlation between pitcher actions(Pitches, Pickoff Attempts, etc.) and pitcher success measured in wins and losses."
 
 ## 2. Data
 
@@ -25,7 +25,7 @@ glimpse(baseball)
 
 ## 3. Data analysis plan
 
-Our plan is to understand what pitch combinations make a pitcher better or worse. This can be done by looking at pitch combinations and batter success against a pitcher. Visualizing this will present an image of success. We will also look at time trends to see how pitchers change their pitch combinations as they age in order to stay successful. The visualizations below demonstrate that there is differentation among the data in terms of strikeouts and that there is a probable correlation between innings pitched and ERA, where as more innings are pitched, ERA decreases.
+Our plan is to understand what pitch combinations make a pitcher better or worse. This can be done by looking at pitch combinations and batter success against a pitcher. Visualizing this will present an image of success. We will also look at time trends to see how pitchers change their pitch combinations as they age in order to stay successful. The visualizations below demonstrate that there is differentation among the data in terms of strikeouts and that there is a probable correlation between innings pitched and Earned Run Average-the average number of runs allowed over 9 innings-(ERA), where as more innings are pitched, ERA decreases.
 
 ```{r preliminary visualizations}
 library(ggplot2)
