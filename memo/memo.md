@@ -1,6 +1,6 @@
 Project memo
 ================
-Team name
+Luke and Jack
 
 This document should contain a detailed account of the data clean up for
 your data and the design choices you are making for your plots. For
@@ -16,43 +16,62 @@ library(broom)
 
 ## Data Clean Up Steps for Overall Data
 
-### Step 1: \_\_\_\_\_\_\_\_\_
+### Step 1: Import and Clean Data
+
+``` r
+baseball <- read.csv("../data/pitching_data_2021-2024.csv")
+baseball <- baseball %>%
+  mutate(pitch_clock = ifelse(year >= 2023, "Yes", "No"))
+
+# Step 1: Keep pitchers with all 4 years of data
+baseball <- baseball %>%
+  group_by(player_id) %>%
+  filter(n_distinct(year) == 4) %>%
+  ungroup()
+
+# Step 2: Calculate adjusted pitches and strike rate row by row
+baseball_1plot <- baseball %>%
+  mutate(
+    adjusted_total_pitches = p_total_pitches - ifelse(is.na(p_automatic_ball), 0, p_automatic_ball),
+    strike_percent = (p_total_strike / adjusted_total_pitches) * 100
+  ) %>%
+  filter(!is.na(pitch_clock), adjusted_total_pitches > 0)
+
+# Step 3: Collapse to one row per pitcher per pitch_clock (pre/post)
+baseball_1plot <- baseball_1plot %>%
+  group_by(player_id, pitch_clock) %>%
+  summarise(
+    avg_strike_percent = mean(strike_percent, na.rm = TRUE),
+    total_pitches = sum(adjusted_total_pitches, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
 
 ### Step 2: \_\_\_\_\_\_\_\_
 
 ## Plots
 
-### ggsave example for saving plots
-
-``` r
-p1 <- starwars |>
-  filter(mass < 1000, 
-         species %in% c("Human", "Cerean", "Pau'an", "Droid", "Gungan")) |>
-  ggplot() +
-  geom_point(aes(x = mass, 
-                 y = height, 
-                 color = species)) +
-  labs(x = "Weight (kg)", 
-       y = "Height (m)",
-       color = "Species",
-       title = "Weight and Height of Select Starwars Species",
-       caption = paste("This data comes from the starwars api: https://swapi.py43.com"))
-
-
-ggsave("example-starwars.png", width = 4, height = 4)
-
-ggsave("example-starwars-wide.png", width = 6, height = 4)
-```
-
 ### Plot 1: \_\_\_\_\_\_\_\_\_
 
 #### Data cleanup steps specific to plot 1
 
-``` r
-# This section is optional and depends on if you have some data cleaning steps specific to a particular plot
-```
+These data cleaning sections are optional and depend on if you have some
+data cleaning steps specific to a particular plot
 
 #### Final Plot 1
+
+``` r
+plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_percent, fill = pitch_clock)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+    title = "Strike % by Pitch Clock Era (Adjusted for Automatic Balls)",
+    x = "Pitch Clock Implemented?",
+    y = "Average Strike %"
+  ) +
+  theme_minimal()
+
+ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, height = 6)
+```
 
 ### Plot 2: \_\_\_\_\_\_\_\_\_
 
