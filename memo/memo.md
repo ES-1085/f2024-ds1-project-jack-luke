@@ -23,12 +23,6 @@ baseball <- read.csv("../data/pitching_data_2021-2024.csv")
 baseball <- baseball %>%
   mutate(pitch_clock = ifelse(year >= 2023, "Yes", "No"))
 
-# Step 1: Keep pitchers with all 4 years of data
-baseball <- baseball %>%
-  group_by(player_id) %>%
-  filter(n_distinct(year) == 4) %>%
-  ungroup()
-
 # Step 2: Calculate adjusted pitches and strike rate row by row
 baseball_1plot <- baseball %>%
   mutate(
@@ -67,8 +61,7 @@ plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_perc
     title = "Strike % by Pitch Clock Era (Adjusted for Automatic Balls)",
     x = "Pitch Clock Implemented?",
     y = "Average Strike %"
-  ) +
-  theme_minimal()
+  ) 
 
 ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, height = 6)
 ```
