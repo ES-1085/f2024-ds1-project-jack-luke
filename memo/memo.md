@@ -137,7 +137,7 @@ ERAbox_plot <-
   ) +  # text label of mean
   labs(
     title = "Pitcher ERA Per Game By Pitch Clock", 
-    x = "Pitchclock Implemented?",
+    x = "Pitch Clock Implemented?",
     y = "ERA by Game"
   ) +
   theme(legend.position = "none")
