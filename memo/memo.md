@@ -21,7 +21,7 @@ library(broom)
 ``` r
 baseball <- read.csv("../data/pitching_data_2021-2024.csv")
 baseball <- baseball %>%
-  mutate(pitch_clock = ifelse(year >= 2023, "Pitch Clock Implemented", "Pre Pitch Clock Implementation"))
+  mutate(pitch_clock = ifelse(year >= 2023, "Yes", "No"))
 
 # Step 1: Keep pitchers with all 4 years of data
 baseball_1plot <- baseball %>%
@@ -52,6 +52,14 @@ baseball_1plot <- baseball_1plot %>%
     total_pitches = sum(adjusted_total_pitches, na.rm = TRUE),
     .groups = "drop"
   )
+
+baseball_3plot <- baseball %>%
+  group_by(player_id, pitch_clock) %>%
+  summarise(
+    p_era = mean(p_era, na.rm = TRUE),
+    total_pitches = sum(adjusted_total_pitches, na.rm = TRUE),
+    .groups = "drop"
+  )
 ```
 
 ### Step 2: \_\_\_\_\_\_\_\_
@@ -70,6 +78,15 @@ data cleaning steps specific to a particular plot
 ``` r
 plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_percent, fill = pitch_clock)) +
   geom_boxplot(alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +  # black dot for mean
+  stat_summary(
+    fun = mean,
+    geom = "text",
+    aes(label = round(..y.., 2)),
+    vjust = -1.2,
+    color = "black",
+    size = 4
+  ) +  # mean label
   labs(
     title = "Strike % by Pitch Clock Era (Adjusted for Automatic Balls)",
     x = "Pitch Clock Implemented?",
@@ -80,7 +97,13 @@ plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_perc
 ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, height = 6)
 ```
 
-### Plot 2: \_\_\_\_\_\_\_\_\_
+    ## Warning: The dot-dot notation (`..y..`) was deprecated in ggplot2 3.4.0.
+    ## ℹ Please use `after_stat(y)` instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+### Plot 2: Innings pitched Density Plot
 
 ``` r
 baseball$ip_game <- baseball$p_formatted_ip/baseball$p_game
@@ -101,14 +124,23 @@ ggsave("Innings_Pitcher_per_game.png", plot = densityplot, width = 8, height = 6
 
 ``` r
 ERAbox_plot <-
-  ggplot(baseball, aes(x = pitch_clock, y = p_era, fill = pitch_clock)) +
+  ggplot(baseball_3plot, aes(x = pitch_clock, y = p_era, fill = pitch_clock)) +
   geom_boxplot(alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +  # black dot for mean
+  stat_summary(
+    fun = mean, 
+    geom = "text", 
+    aes(label = round(..y.., 2)), 
+    vjust = -1.2, 
+    color = "black", 
+    size = 4
+  ) +  # text label of mean
   labs(
-   title = "Pitcher ERA Per Game By Pitch Clock", 
-   x = "Pitchclock Implemented?",
-   y = "ERA by Game"
+    title = "Pitcher ERA Per Game By Pitch Clock", 
+    x = "Pitchclock Implemented?",
+    y = "ERA by Game"
   ) +
-  theme(legend.position= "none")
+  theme(legend.position = "none")
 ggsave("ERA_by_Pitchclock.png", plot = ERAbox_plot, width = 8, height = 6)
 ```
 
