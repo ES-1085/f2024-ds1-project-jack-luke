@@ -18,7 +18,7 @@ library(broom)
 ```{r import data and clean it for plots, message = FALSE}
 baseball <- read.csv("../data/pitching_data_2021-2024.csv")
 baseball <- baseball %>%
-  mutate(pitch_clock = ifelse(year >= 2023, "Yes", "No"))
+  mutate(pitch_clock = ifelse(year >= 2023, "Pitch Clock Implemented", "Pre Pitch Clock Implementation"))
 
 # Step 1: Keep pitchers with all 4 years of data
 baseball_1plot <- baseball %>%
@@ -76,9 +76,11 @@ plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_perc
     title = "Strike % by Pitch Clock Era (Adjusted for Automatic Balls)",
     x = "Pitch Clock Implemented?",
     y = "Average Strike %"
-  ) 
+  ) +
+  theme(legend.position = "none")
 
 ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, height = 6)
+
 
 
 ```
@@ -90,9 +92,9 @@ baseball$ip_game <- baseball$p_formatted_ip/baseball$p_game
 densityplot <- ggplot(baseball, aes(x = ip_game, fill = factor(pitch_clock))) +
   geom_density(alpha = 0.5) +
   labs(
-    title = "Density Plot of IP per Game by Pitch Clock",
+    title = "Innings Pitched (IP) per Game by Pitch Clock",
     x = "IP per Game",
-    y = "Density",
+    y = "Percent of Observations",
     fill = "Pitch Clock"
   ) +
   theme_minimal()

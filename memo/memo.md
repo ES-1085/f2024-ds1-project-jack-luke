@@ -21,10 +21,23 @@ library(broom)
 ``` r
 baseball <- read.csv("../data/pitching_data_2021-2024.csv")
 baseball <- baseball %>%
-  mutate(pitch_clock = ifelse(year >= 2023, "Yes", "No"))
+  mutate(pitch_clock = ifelse(year >= 2023, "Pitch Clock Implemented", "Pre Pitch Clock Implementation"))
+
+# Step 1: Keep pitchers with all 4 years of data
+baseball_1plot <- baseball %>%
+  group_by(player_id) %>%
+  filter(all(c(2022, 2023) %in% year)) %>%
+  ungroup()
 
 # Step 2: Calculate adjusted pitches and strike rate row by row
-baseball_1plot <- baseball %>%
+baseball_1plot <- baseball_1plot %>%
+  mutate(
+    adjusted_total_pitches = p_total_pitches - ifelse(is.na(p_automatic_ball), 0, p_automatic_ball),
+    strike_percent = (p_total_strike / adjusted_total_pitches) * 100
+  ) %>%
+  filter(!is.na(pitch_clock), adjusted_total_pitches > 0)
+
+baseball <- baseball %>%
   mutate(
     adjusted_total_pitches = p_total_pitches - ifelse(is.na(p_automatic_ball), 0, p_automatic_ball),
     strike_percent = (p_total_strike / adjusted_total_pitches) * 100
@@ -45,7 +58,7 @@ baseball_1plot <- baseball_1plot %>%
 
 ## Plots
 
-### Plot 1: \_\_\_\_\_\_\_\_\_
+### Plot 1: Boxplot of Strike Percentage
 
 #### Data cleanup steps specific to plot 1
 
@@ -61,12 +74,28 @@ plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_perc
     title = "Strike % by Pitch Clock Era (Adjusted for Automatic Balls)",
     x = "Pitch Clock Implemented?",
     y = "Average Strike %"
-  ) 
+  ) +
+  theme(legend.position = "none")
 
 ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, height = 6)
 ```
 
 ### Plot 2: \_\_\_\_\_\_\_\_\_
+
+``` r
+baseball$ip_game <- baseball$p_formatted_ip/baseball$p_game
+densityplot <- ggplot(baseball, aes(x = ip_game, fill = factor(pitch_clock))) +
+  geom_density(alpha = 0.5) +
+  labs(
+    title = "Innings Pitched (IP) per Game by Pitch Clock",
+    x = "IP per Game",
+    y = "Percent of Observations",
+    fill = "Pitch Clock"
+  ) +
+  theme_minimal()
+
+ggsave("Innings_Pitcher_per_game.png", plot = densityplot, width = 8, height = 6)
+```
 
 ### Plot 3: \_\_\_\_\_\_\_\_\_\_\_
 
