@@ -113,7 +113,7 @@ densityplot <- ggplot(baseball, aes(x = ip_game, fill = factor(pitch_clock))) +
     title = "Innings Pitched (IP) per Game by Pitch Clock",
     x = "IP per Game",
     y = "Percent of Observations",
-    fill = "Pitch Clock"
+    fill = "Pitch Clock Implemented?"
   ) +
   theme_minimal()
 
