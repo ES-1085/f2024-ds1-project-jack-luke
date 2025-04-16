@@ -69,7 +69,7 @@ These data cleaning sections are optional and depend on if you have some data cl
 
 #### Final Plot 1
 
-```{r}
+```{r Strike%-by-pitchclock-boxplot}
 plot1_boxplot <- ggplot(baseball_1plot, aes(x = pitch_clock, y = avg_strike_percent, fill = pitch_clock)) +
   geom_boxplot(alpha = 0.7) +
   labs(
@@ -85,7 +85,7 @@ ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, hei
 
 ### Plot 2: \_\_\_\_\_\_\_\_\_
 
-```{r}
+```{r IP-Densityplot}
 baseball$ip_game <- baseball$p_formatted_ip/baseball$p_game
 densityplot <- ggplot(baseball, aes(x = ip_game, fill = factor(pitch_clock))) +
   geom_density(alpha = 0.5) +
@@ -103,14 +103,14 @@ ggsave("Innings_Pitcher_per_game.png", plot = densityplot, width = 8, height = 6
 
 ### Plot 3: Boxplot of ERA
 
-```{r}
+```{r ERA-Boxplot}
 ERAbox_plot <-
-  ggplot(baseball, aes(x=pitch_clock, y=p_era, fill=pitch_clock)) +
+  ggplot(baseball, aes(x = pitch_clock, y = p_era, fill = pitch_clock)) +
   geom_boxplot(alpha = 0.7) +
   labs(
-   title= "Pitcher ERA Per Game By Pitch Clock", 
-   x= "Pitchclock Implemented?",
-   y= "ERA by Game"
+   title = "Pitcher ERA Per Game By Pitch Clock", 
+   x = "Pitchclock Implemented?",
+   y = "ERA by Game"
   ) +
   theme(legend.position= "none")
 ggsave("ERA_by_Pitchclock.png", plot = ERAbox_plot, width = 8, height = 6)
@@ -118,3 +118,7 @@ ggsave("ERA_by_Pitchclock.png", plot = ERAbox_plot, width = 8, height = 6)
 
 
 ### Plot 4: \_\_\_\_\_\_\_\_\_\_\_
+```{r}
+
+```
+
