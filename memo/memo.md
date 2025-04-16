@@ -97,9 +97,19 @@ densityplot <- ggplot(baseball, aes(x = ip_game, fill = factor(pitch_clock))) +
 ggsave("Innings_Pitcher_per_game.png", plot = densityplot, width = 8, height = 6)
 ```
 
-### Plot 3: \_\_\_\_\_\_\_\_\_\_\_
+### Plot 3: Boxplot of ERA
 
-Add more plot sections as needed. Each project should have at least 3
-plots, but talk to me if you have fewer than 3.
+``` r
+ERAbox_plot <-
+  ggplot(baseball, aes(x = pitch_clock, y = p_era, fill = pitch_clock)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+   title = "Pitcher ERA Per Game By Pitch Clock", 
+   x = "Pitchclock Implemented?",
+   y = "ERA by Game"
+  ) +
+  theme(legend.position= "none")
+ggsave("ERA_by_Pitchclock.png", plot = ERAbox_plot, width = 8, height = 6)
+```
 
 ### Plot 4: \_\_\_\_\_\_\_\_\_\_\_
