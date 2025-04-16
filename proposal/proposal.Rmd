@@ -42,6 +42,13 @@ ggplot(baseball, aes(x = p_formatted_ip, y = p_era)) +
   labs(title = "Innings Pitched vs ERA", x = "Innings Pitched", y = "ERA")
 ```
 
+
+```{r-ERA boxplot}
+
+```
+
+
+
 ## 4. Data Ethics Review
 
 The data ethics review section will be introduced in a separate class and is not part of the original proposal deadline.

@@ -23,8 +23,21 @@ baseball <- read.csv("../data/pitching_data_2021-2024.csv")
 baseball <- baseball %>%
   mutate(pitch_clock = ifelse(year >= 2023, "Yes", "No"))
 
-# Step 2: Calculate adjusted pitches and strike rate row by row
+# Step 1: Keep pitchers with all 4 years of data
 baseball_1plot <- baseball %>%
+  group_by(player_id) %>%
+  filter(all(c(2022, 2023) %in% year)) %>%
+  ungroup()
+
+# Step 2: Calculate adjusted pitches and strike rate row by row
+baseball_1plot <- baseball_1plot %>%
+  mutate(
+    adjusted_total_pitches = p_total_pitches - ifelse(is.na(p_automatic_ball), 0, p_automatic_ball),
+    strike_percent = (p_total_strike / adjusted_total_pitches) * 100
+  ) %>%
+  filter(!is.na(pitch_clock), adjusted_total_pitches > 0)
+
+baseball <- baseball %>%
   mutate(
     adjusted_total_pitches = p_total_pitches - ifelse(is.na(p_automatic_ball), 0, p_automatic_ball),
     strike_percent = (p_total_strike / adjusted_total_pitches) * 100
@@ -45,7 +58,7 @@ baseball_1plot <- baseball_1plot %>%
 
 ## Plots
 
-### Plot 1: \_\_\_\_\_\_\_\_\_
+### Plot 1: Boxplot of Strike Percentage
 
 #### Data cleanup steps specific to plot 1
 
@@ -68,9 +81,34 @@ ggsave("strike_percent_by_pitch_clock.png", plot = plot1_boxplot, width = 8, hei
 
 ### Plot 2: \_\_\_\_\_\_\_\_\_
 
-### Plot 3: \_\_\_\_\_\_\_\_\_\_\_
+``` r
+baseball$ip_game <- baseball$p_formatted_ip/baseball$p_game
+densityplot <- ggplot(baseball, aes(x = ip_game, fill = factor(pitch_clock))) +
+  geom_density(alpha = 0.5) +
+  labs(
+    title = "Density Plot of IP per Game by Pitch Clock",
+    x = "IP per Game",
+    y = "Density",
+    fill = "Pitch Clock"
+  ) +
+  theme_minimal()
 
-Add more plot sections as needed. Each project should have at least 3
-plots, but talk to me if you have fewer than 3.
+ggsave("Innings_Pitcher_per_game.png", plot = densityplot, width = 8, height = 6)
+```
+
+### Plot 3: Boxplot of ERA
+
+``` r
+ERAbox_plot <-
+  ggplot(baseball, aes(x=pitch_clock, y=p_era, fill=pitch_clock)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(
+   title= "Pitcher ERA Per Game By Pitch Clock", 
+   x= "Pitchclock Implemented?",
+   y= "ERA by Game"
+  ) +
+  theme(legend.position= "none")
+ggsave("ERA_by_Pitchclock.png", plot = ERAbox_plot, width = 8, height = 6)
+```
 
 ### Plot 4: \_\_\_\_\_\_\_\_\_\_\_
