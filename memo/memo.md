@@ -143,5 +143,3 @@ ERAbox_plot <-
   theme(legend.position = "none")
 ggsave("ERA_by_Pitchclock.png", plot = ERAbox_plot, width = 8, height = 6)
 ```
-
-### Plot 4: \_\_\_\_\_\_\_\_\_\_\_
