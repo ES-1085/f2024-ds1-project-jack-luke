@@ -10,53 +10,19 @@ by Jack and Luke
 
 ## Summary
 
-In 2023, Major League Baseball revolutionized the sport by implementing a pitch clock.
-Baseball was losing viewership as games became slower and harder to watch, often lasting more than three hours.
-Fans were frustrated by the long pauses between pitches, which as a result were leading to extremely long games.
-Major League Baseball was also quickly losing viewers due to these long games.
-In response, Major League Baseball introduced a pitch clock with the goal of speeding up the game and making it more engaging for both new and lifelong fans.
-The new rules gave pitchers 15 seconds to throw when the bases were empty and 20 seconds when runners were on base.
-Starting in 2024, the time with runners on was shortened to 18 seconds.
-Batters were required to be ready in the box with eight seconds remaining on the pitch clock, or else be charged with an automatic strike.
-If the pitcher failed to begin his delivery before the clock expired, an automatic ball would be assessed.
-Pitchers were also limited pitchers to two pickoff attempts or step-offs per plate appearance, with a third unsuccessful attempt resulting in the runner automatically advancing.
-Major League Baseball’s also adjusted mound visit limit, allowing for an extra visit if a team had used all of its visits before the ninth inning.
-These changes were designed to move the game along without disrupting its competitive balance.
-The pitch clock did more than just shorten games.
-It changed how pitchers approached their work on the mound.
-Before the pitch clock, pitchers often used the time between pitches to regain their energy, refocus, and control the pace of the game.
-With the new time constraints, pitchers had to adapt both physically and mentally to a faster rhythm.
-Managers and front office personnel, therefore, must seek to understand how to adjust their management of players and effects of the new rule on their pitchers.
-This adjustment had measurable effects on several key statistics.
-One noticeable change was a slight decrease in the percentage of pitches thrown for strikes.
-While the overall decline was not dramatic, it was consistent across the league.
-This suggests that the reduced time may have made it harder for pitchers to execute their pitches as accurately as before.
-Some pitchers who relied on longer pauses to control their tempo were particularly affected.
-Another major area of change was pitcher workload.
-The average number of innings pitched per game became much more consistent.
-Most starting pitchers now average around five and two-thirds innings per outing.
-Previously, there had been a wider range, with some starters regularly pitching deep into games while others were pulled earlier.
-The standardized pace imposed by the pitch clock meant that pitchers tired more predictably, and managers could plan more consistently for bullpen usage.
-ERA, or earned run average, showed interesting results.
-While the average ERA across the league stayed roughly the same after the pitch clock was implemented, the spread of ERA values tightened.
-Elite performances still occurred, but the gap between the best and worst pitchers became smaller.
-This suggests that the pitch clock created an environment where consistency and adaptability were rewarded.
-It is important to note that these changes did not fundamentally alter the core of the game.
-Pitchers still needed to execute good pitches, fielders still needed to defend, and hitters still needed to find ways to reach base.
-However, the clock introduced a new layer of strategy and endurance.
-Pitchers who could stay composed under time pressure gained an advantage, while those who struggled saw declines in performance.
-Overall, the 2023 pitch clock rule represented a significant step in Major League Baseball’s effort to modernize the game.
-By requiring faster play, the league hoped to make baseball more exciting without losing its essential character.
-The early results suggest that the pitch clock achieved its main goals.
-Games became shorter and more watchable.
-Pitcher performance, while slightly affected in some areas, became more consistent overall.
-As younger pitchers are trained with the clock in place, the adjustment period may disappear altogether.
-Pitchers of the future will likely develop new strategies that embrace the faster tempo rather than exist with the faster style of play.
-Major League Baseball’smove to implement the pitch clock shows how even a sport built on tradition can adapt thoughtfully, responding to both the needs of players and the expectations of a changing audience.
+The purpose of our project was to analyze Major League Baseball pitcher performance before and after the implementation of the pitch clock. Among the rule changes that took effect in 2023, the addition of the pitch clock is arguably the most impactful, vastly increasing the pace of the game. Before, pitchers essentially had an unlimited time to pitch, now, pitchers are required to throw to the plate within 18 seconds when runners are on base and 15 seconds when the bases are empty. Failure to pitch in the allotted time results in an automatic ball. With seemingly more restrictions, it would be expected that pitchers have found it hard to adjust to the change and therefore aren't as successful. To test this theory, we observed and visualized key pitcher metrics such as strike percentage, innings pitched, and ERA per game before and after the rule change. We find that pitcher outcomes do not change substantially with the addition of the pitch clock, but observe that variability within performance outcomes tightens after the addition of the pitch clock. This suggests that performance metrics are becoming more uniform, with outcomes grouping more consistently towards the mean and median.                    
+
+
+## Methods and Analysis
+
+Data was obtained from MLB's Statcast. We limited our focus to starting pitcher data from 2021-2024 to ensure that observations were balanced for outcomes before and after the implementation of the pitch clock. We obtained data on 411 starting pitchers, with a minimum of 20 games played in to be included in the dataset. We obtained data pertaining to many different pitcher outcomes, but focused primarily on strike percentage, innings pitched, and ERA. Each observation represented a starting pitcher's outcomes in a given year.
+  Data was cleaned when necessary to visualize key metrics and to distinguish between whether the pitch clock was implemented or not. Strike percentage was calculated by dividing strikes by the total amount of adjusted pitches. Adjusted pitches represented all pitches excluding automatic calls to better reflect outcomes. The variable "pitch_clock" was created to filter whether the outcomes occurred before or after the rule change.
+  Our data was visualized by two boxplots and a density plot. Innings pitched per game was visualized as a density plot, which showed that the spread of average innings pitched per game was tightening a little under 6 innings with the inclusion of the pitch clock. For strike percentage, we observed that strike percentage decreased from 65.08% to 64.62% with the addition of the pitch clock. We also observe that variation decreases with the addition of the pitch clock. It's hard to say whether the decrease is due to random variation within the data or due to the addition of the pitch clock. For pitcher ERA per game, we observed an increase in ERA from 3.94 to 3.96. We again observe the spread tightening with the inclusion of the pitch clock. Again, this small difference could be due to random variation within the data and not necessarily due to the rule change. While the visualizations don't show significant differences in pitching outcomes before and after the pitch clock, the tightening spread of the data shows that performance is becoming more consistent and less variable. We attribute this effect to the more standardized game tempo that the pitch clock creates, requiring pitchers to work at a consistent pace regardless of the game situation. This is reflected in the insights from average innings pitched per game, with the pitch clock tightening the spread and becoming more uniform around 5.67 innings pitched per game. We believe that these findings help illustrate the nature of pitching performance and outcomes before and after the rule change. We acknowledge the limitations of our data, in that we only observe starting pitcher outcomes. This omits relief and closing pitchers, who may be more sensitive to changes given they don't pitch as long as starting pitchers. We also glean that over the course of 4 seasons, many pitchers may have been injured, called down or retired, not meeting the cutoff of 20 games, which would omit them from the dataset. We hope that future research will build upon these insights. Particularly, it would be interesting to see differences between young and older pitchers or relief pitchers and starting pitchers.    
+
 
 ## Handout
 
-Our presentation can be found [here](DCS117 Final.pdf).
+Our presentation can be found [here](DCS117%20Final.pdf).
 
 ## Memo
 
