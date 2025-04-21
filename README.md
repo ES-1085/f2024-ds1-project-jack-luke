@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # Understanding Pitcher Performance after Pitch Clock Implementation
 
 by Jack and Luke
