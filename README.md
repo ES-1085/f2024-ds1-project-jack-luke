@@ -56,7 +56,7 @@ Major League Baseball’smove to implement the pitch clock shows how even a spor
 
 ## Handout
 
-Our presentation can be found [here](DCS117 Final.pdf).
+Our presentation can be found [here](DCS117Final.pdf).
 
 ## Memo
 
