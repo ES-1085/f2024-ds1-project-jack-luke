@@ -22,7 +22,8 @@ Data was obtained from MLB's Statcast. We limited our focus to starting pitcher 
 
 ## Handout
 
-Our presentation can be found [here](DCS117%20Final.pdf).
+
+Our presentation can be found [here](DCS117Final.pdf).
 
 ## Memo
 
